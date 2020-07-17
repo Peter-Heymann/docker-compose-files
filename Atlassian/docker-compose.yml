@@ -40,7 +40,7 @@ services:
     ports: 
       - 5432:5432
     environment:     
-      POSTGRES_PASSWORD: 
+      POSTGRES_PASSWORD: <your-password>
       POSTGRES_USER: jira
       POSTGRES_DB: jira
     
@@ -52,7 +52,7 @@ services:
     ports: 
       - 5433:5432
     environment:     
-      POSTGRES_PASSWORD: 
+      POSTGRES_PASSWORD: <your-password>
       POSTGRES_USER: confluence
       POSTGRES_DB: confluence
 
@@ -64,7 +64,7 @@ services:
     ports: 
       - 5431:5432
     environment:     
-      POSTGRES_PASSWORD: 
+      POSTGRES_PASSWORD: <your-password>
       POSTGRES_DB: bitbucket  
       POSTGRES_USER: bitbucket
 
