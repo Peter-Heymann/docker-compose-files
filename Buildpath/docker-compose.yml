@@ -1,0 +1,39 @@
+version: '3.4'
+services:
+ teamcity:
+    image: jetbrains/teamcity-server
+    ports:
+      - 8111:8111
+    volumes:
+        - teamcity_data:/data/teamcity_server/datadir
+        - teamcity_logs:/opt/teamcity/logs
+ upsource:
+    image: jetbrains/upsource
+    ports:
+        - 8110:8080
+    volumes:
+        - upsource_data:/opt/upsource/data
+        - upsource_conf:/opt/upsource/conf
+        - upsource_logs:/opt/upsource/logs
+        - upsource_backups:/opt/upsource/backups
+ hub:
+    image: jetbrains/hub
+    ports:
+        - 8112:8080
+    volumes:
+        - hub_data:/opt/hub/data   
+        - hub_conf:/opt/hub/conf
+        - hub_logs:/opt/hub/logs
+        - hub_backups:/opt/hub/backups
+
+volumes:
+teamcity_data:
+teamcity_logs:
+upsource_data:
+upsource_conf:
+upsource_logs:
+upsource_backups:
+hub_backups:
+hub_conf:
+hub_data:
+hub_logs:
