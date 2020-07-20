@@ -2,13 +2,15 @@ version: '3.4'
 services:
  teamcity:
     image: jetbrains/teamcity-server
+    links:
+      - database-teamcity
     ports:
       - 8111:8111
     volumes:
         - teamcity_data:/data/teamcity_server/datadir
         - teamcity_logs:/opt/teamcity/logs
  upsource:
-    image: jetbrains/upsource
+    image: jetbrains/upsource:2020.1.1782
     ports:
         - 8110:8080
     volumes:
@@ -17,7 +19,7 @@ services:
         - upsource_logs:/opt/upsource/logs
         - upsource_backups:/opt/upsource/backups
  hub:
-    image: jetbrains/hub
+    image: jetbrains/hub:2020.1.12375
     ports:
         - 8112:8080
     volumes:
@@ -25,15 +27,26 @@ services:
         - hub_conf:/opt/hub/conf
         - hub_logs:/opt/hub/logs
         - hub_backups:/opt/hub/backups
+ database-teamcity:
+    image: postgres
+    volumes:
+      - database-teamcity-data:/var/lib/postgres/data
+    ports: 
+      - 5432:5432
+    environment:     
+      POSTGRES_PASSWORD: <your-password>
+      POSTGRES_USER: teamcity
+      POSTGRES_DB: teamcity        
 
 volumes:
-teamcity_data:
-teamcity_logs:
-upsource_data:
-upsource_conf:
-upsource_logs:
-upsource_backups:
-hub_backups:
-hub_conf:
-hub_data:
-hub_logs:
+ teamcity_data:
+ teamcity_logs:
+ upsource_data:
+ upsource_conf:
+ upsource_logs:
+ upsource_backups:
+ hub_backups:
+ hub_conf:
+ hub_data:
+ hub_logs:
+ database-teamcity-data:
