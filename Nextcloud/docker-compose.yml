@@ -1,0 +1,32 @@
+version: '3.4'
+services:
+  nextcloud:
+    image: nextcloud
+    ports: 
+      - 8080:80 
+    volumes: 
+      - nextcloud_apps:/var/www/html/custom_apps
+      - nextcloud_config:/var/www/html/config
+      - nextcloud_data:/var/www/html/data
+      - nextcloud_theme:/var/www/html/themes/<YOUR_CUSTOM_THEME>
+    environment: 
+     NEXTCLOUD_ADMIN_USER: <your-username>
+     NEXTCLOUD_ADMIN_PASSWORD: <your-password>
+
+  database-nextcloud:
+    image: postgres
+    volumes:
+      - database-nextcloud-data:/var/lib/postgres/data
+    ports: 
+      - 5432:5432
+    environment:     
+      POSTGRES_PASSWORD: <your-password>
+      POSTGRES_DB: nextcloud  
+      POSTGRES_USER: nextcloud
+
+volumes:
+  database-nextcloud-data:
+  nextcloud_apps:
+  nextcloud_config:
+  nextcloud_data:
+  nextcloud_theme:

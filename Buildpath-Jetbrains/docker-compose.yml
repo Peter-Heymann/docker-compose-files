@@ -9,6 +9,12 @@ services:
     volumes:
         - teamcity_data:/data/teamcity_server/datadir
         - teamcity_logs:/opt/teamcity/logs
+ teamcity-agent:
+    image: jetbrains/teamcity-agent
+    environment: 
+     SERVER_URL: "localhost:8111"
+    volumes:
+        - teamcity_agent_data:/data/teamcity_agent/conf 
  upsource:
     image: jetbrains/upsource:2020.1.1782
     ports:
@@ -50,3 +56,4 @@ volumes:
  hub_data:
  hub_logs:
  database-teamcity-data:
+ teamcity_agent_data:
