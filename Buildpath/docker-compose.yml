@@ -1,7 +1,7 @@
 version: '3.4'
 services:
  jenkins:
-    image: jenkins:latest
+    image: jenkins:lts      # version 2.235.2
     volumes:
       - jenkins-home:/var/jenkins_home
     ports:
@@ -35,3 +35,5 @@ volumes:
   sonarqube-conf:
   sonarqube-extensions:
   nexus-data:
+
+  # For help with jenkins https://medium.com/@jimkang/how-to-start-a-new-jenkins-container-and-update-jenkins-with-docker-cf628aa495e9
