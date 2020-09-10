@@ -39,6 +39,9 @@ services:
     volumes:
       - db:/var/lib/mysql
     
+
+
+    #https://hub.docker.com/r/dpage/pgadmin4/
     
 #    environment:
 #    -e WORDPRESS_DB_HOST=...
