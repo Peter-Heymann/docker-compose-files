@@ -2,42 +2,23 @@ version: '3.4'
 
 services:
   elasticsearch:
-    build:
-      context: elasticsearch/
-      args:
-        ELK_VERSION: 7.8.1
+    image: elasticsearch:7.8.1
     volumes:
-      - type: bind
-        source: ./elasticsearch/config/elasticsearch.yml
-        target: /usr/share/elasticsearch/config/elasticsearch.yml
-        read_only: true
-      - type: volume
-        source: elasticsearch
-        target: /usr/share/elasticsearch/data
+      - elasticsearch:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      ELASTIC_PASSWORD: <your_password>
+      ELASTIC_PASSWORD: 12345
       discovery.type: single-node
     networks:
       - elk
 
   logstash:
-    build:
-      context: logstash/
-      args:
-        ELK_VERSION: 7.8.1
+    image: logstash:7.8.1
     volumes:
-      - type: bind
-        source: ./logstash/config/logstash.yml
-        target: /usr/share/logstash/config/logstash.yml
-        read_only: true
-      - type: bind
-        source: ./logstash/pipeline
-        target: /usr/share/logstash/pipeline
-        read_only: true
+        - logstash:/usr/share/logstash/pipeline
     ports:
       - "5000:5000/tcp"
       - "5000:5000/udp"
@@ -50,15 +31,9 @@ services:
       - elasticsearch
 
   kibana:
-    build:
-      context: kibana/
-      args:
-        ELK_VERSION: 7.8.1
+    image: kibana:7.8.1
     volumes:
-      - type: bind
-        source: ./kibana/config/kibana.yml
-        target: /usr/share/kibana/config/kibana.yml
-        read_only: true
+      - kibana:/usr/share/kibana/config/kibana.yml
     ports:
       - "5601:5601"
     networks:
@@ -72,3 +47,10 @@ networks:
 
 volumes:
   elasticsearch:
+    driver: local
+  logstash:
+    driver: local
+  kibana:
+    driver: local    
+    
+    
