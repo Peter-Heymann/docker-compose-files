@@ -19,8 +19,8 @@ services:
       POSTGRES_PASSWORD: <your-password>
       POSTGRES_USER: your-user
       POSTGRES_DB: your-database           
-    networks:
-      - db-network
+#    networks:
+#      - db-network
   
   pgadmin:
     image: dpage/pgadmin4:4.18
@@ -34,13 +34,13 @@ services:
       - pgadmin-data:/var/lib/pgadmin
     links:
       - "postgresDB:pgsql-server"    
-    networks:
-      - db-network
+#    networks:
+#      - db-network
 
 
-networks:
-  db-network:
-  driver: bridge
+#networks:
+#  db-network:
+#  driver: bridge
       
 
 volumes:
