@@ -2,7 +2,6 @@ version: '3.4'
 services:
   jira:
     image: atlassian/jira-software
-    restart: always
     links:
       - database-jira
     volumes:
@@ -11,8 +10,7 @@ services:
       - 8190:8080
 
   confluence:
-    image: atlassian/confluence-server
-    restart: always
+    image: atlassian/confluence-server  
     links:
       - database-confluence
     volumes:
@@ -22,8 +20,7 @@ services:
       - 8091:8091    
 
   bitbucket:
-    image: atlassian/bitbucket-server
-    restart: always
+    image: atlassian/bitbucket-server    
     links: 
       - database-bitbucket
     volumes: 
@@ -32,9 +29,21 @@ services:
       - 7990:7990
       - 7999:7999
 
+  teamcity:
+    image: jetbrains/teamcity-server
+    volumes:
+      - teamcity-server-data:/data/teamcity_server/datadir
+      - teamcity-server-logs:/opt/teamcity/logs
+    ports:
+      - 8111:8111
+
+  teamcity-agent:
+    image: jetbrains/teamcity-agent
+    volumes: 
+      - teamcity-agent-conf:/data/teamcity_agent/conf    
+        
   database-jira:
     image: postgres
-    restart: always
     volumes:
       - database-jira-data:/var/lib/postgres/data
     ports: 
@@ -46,7 +55,6 @@ services:
     
   database-confluence:
     image: postgres
-    restart: always
     volumes:
       - database-confluence-data:/var/lib/postgres/data
     ports: 
@@ -58,7 +66,6 @@ services:
 
   database-bitbucket:
     image: postgres
-    restart: always
     volumes:
       - database-bitbucket-data:/var/lib/postgres/data
     ports: 
@@ -75,3 +82,6 @@ volumes:
   database-jira-data:
   database-confluence-data:
   database-bitbucket-data:   
+  teamcity-server-data:
+  teamcity-server-logs:
+  teamcity-agent-conf:  
