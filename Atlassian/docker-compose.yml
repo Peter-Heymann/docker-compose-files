@@ -40,8 +40,10 @@ services:
   teamcity-agent:
     image: jetbrains/teamcity-agent
     volumes: 
-      - teamcity-agent-conf:/data/teamcity_agent/conf    
-        
+      - teamcity-agent-conf:/data/teamcity_agent/conf
+    environment:
+      SERVER_URL: http://localhost:8111
+
   database-jira:
     image: postgres
     volumes:
