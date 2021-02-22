@@ -31,6 +31,8 @@ services:
 
   teamcity:
     image: jetbrains/teamcity-server
+    links: 
+      - database-teamcity
     volumes:
       - teamcity-server-data:/data/teamcity_server/datadir
       - teamcity-server-logs:/opt/teamcity/logs
@@ -77,13 +79,25 @@ services:
       POSTGRES_DB: bitbucket  
       POSTGRES_USER: bitbucket
 
+  database-teamcity:
+    image: postgres
+    volumes:
+      - database-teamcity-data:/var/lib/postgres/data
+    ports: 
+      - 5434:5432
+    environment:     
+      POSTGRES_PASSWORD: <your-password>
+      POSTGRES_DB: teamcity  
+      POSTGRES_USER: teamcity
+
 volumes:
   jira-data:
   confluence-data:
   bitbucket-data:  
-  database-jira-data:
-  database-confluence-data:
-  database-bitbucket-data:   
+  teamcity-agent-conf:
   teamcity-server-data:
   teamcity-server-logs:
-  teamcity-agent-conf:  
+  database-jira-data:
+  database-confluence-data:
+  database-bitbucket-data:
+  database-teamcity-data:     
