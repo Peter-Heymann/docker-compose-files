@@ -14,7 +14,7 @@ services:
     environment: 
      SERVER_URL: "localhost:8111"
     volumes:
-        - teamcity_agent_data:/data/teamcity_agent/conf 
+        - teamcity_agent_data:/data/teamcity_agent/conf
  upsource:
     image: jetbrains/upsource:2020.1.1782
     ports:
@@ -29,7 +29,7 @@ services:
     ports:
         - 8112:8080
     volumes:
-        - hub_data:/opt/hub/data   
+        - hub_data:/opt/hub/data
         - hub_conf:/opt/hub/conf
         - hub_logs:/opt/hub/logs
         - hub_backups:/opt/hub/backups
@@ -37,12 +37,12 @@ services:
     image: postgres
     volumes:
       - database-teamcity-data:/var/lib/postgres/data
-    ports: 
+    ports:
       - 5432:5432
-    environment:     
+    environment:
       POSTGRES_PASSWORD: <your-password>
       POSTGRES_USER: teamcity
-      POSTGRES_DB: teamcity        
+      POSTGRES_DB: teamcity
 
 volumes:
  teamcity_data:
